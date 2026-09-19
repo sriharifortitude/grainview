@@ -41,6 +41,10 @@ For production, `npm run build` writes `dist/`. Serve it from the same
 origin as the API — `/` to these files, `/api` to eventgrain — and there
 is no CORS to configure, which is deliberate: the dashboard has no
 opinion about origins, and the API has no CORS headers to get wrong.
+The Dockerfile does exactly that with nginx:
+
+    docker build -t grainview .
+    docker run -p 80:80 -e API_UPSTREAM=http://eventgrain:4200 grainview
 
 ## Checks
 
