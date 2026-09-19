@@ -9,9 +9,12 @@ COPY tsconfig.json vite.config.ts ./
 COPY src ./src
 RUN npx vite build
 
-FROM nginx:1.27-alpine
+# Rootless: uid 101, listens on 8080, no capabilities needed. Kubernetes
+# pods can run it with a read-only root filesystem and tmpfs on
+# /tmp, /var/cache/nginx and /etc/nginx/conf.d.
+FROM nginxinc/nginx-unprivileged:1.27-alpine
 ENV API_UPSTREAM=http://eventgrain:4200
 COPY deploy/nginx.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
-HEALTHCHECK --interval=10s --timeout=3s --retries=6 CMD wget -qO- http://127.0.0.1/ >/dev/null || exit 1
+EXPOSE 8080
+HEALTHCHECK --interval=10s --timeout=3s --retries=6 CMD wget -qO- http://127.0.0.1:8080/ >/dev/null || exit 1

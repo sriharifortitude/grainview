@@ -46,7 +46,7 @@ opinion about origins, and the API has no CORS headers to get wrong.
 The Dockerfile does exactly that with nginx:
 
     docker build -t grainview .
-    docker run -p 80:80 -e API_UPSTREAM=http://eventgrain:4200 grainview
+    docker run -p 8080:8080 -e API_UPSTREAM=http://eventgrain:4200 grainview   # rootless nginx, uid 101
 
 ## Checks
 
