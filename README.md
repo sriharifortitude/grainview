@@ -1,5 +1,7 @@
 # grainview
 
+[![CI](https://github.com/sriharifortitude/grainview/actions/workflows/ci.yml/badge.svg)](https://github.com/sriharifortitude/grainview/actions/workflows/ci.yml)
+
 A dashboard for [eventgrain](https://github.com/sriharifortitude/eventgrain):
 series, funnel and retention views over a project's events, with charts a
 screen reader can read, a data table behind every picture, saved views,
